@@ -1,0 +1,223 @@
+# 🎮 HAFFY Controller X1
+### A Custom-Built USB Game Controller Powered by Raspberry Pi Pico
+
+<p align="center">
+  <strong>Built Not Bought. Designed to Play.</strong>
+</p>
+
+---
+
+## 🚀 Overview
+
+**HAFFY Controller X1** is a custom-built USB game controller developed using the Raspberry Pi Pico microcontroller.
+
+The project was created to explore embedded systems, USB HID communication, analog input processing, hardware interfacing, and custom controller design.
+
+Unlike commercially available controllers, X1 is designed and assembled from individual electronic components, including analog joystick modules, tactile switches, a multiplexer, and vibration motors.
+
+The controller is housed in a custom 3D-printed enclosure and has been successfully tested with PC games.
+
+## ✨ Features
+
+- 🎮 Custom USB game controller
+- 🕹️ Dual analog joystick support
+- 🔘 16-button matrix
+- 🎯 L3 and R3 joystick button support
+- 🔌 USB HID gamepad communication
+- 🔄 74HC4051 analog multiplexer
+- 📳 Dual vibration motor hardware
+- 🎨 Custom 3D-printed controller enclosure
+- 🖥️ Compatible with Windows gamepad input
+- 🧪 Tested with Ghost Recon Breakpoint
+
+## 🛠️ Hardware Components
+
+| Component | Purpose |
+|---|---|
+| Raspberry Pi Pico | Main microcontroller |
+| 74HC4051 | Analog signal multiplexing |
+| Analog Joystick Modules | Movement and camera control |
+| Tactile Push Buttons | Controller inputs |
+| AO3400A MOSFETs | Vibration motor drivers |
+| Vibration Motors | Haptic feedback |
+| Custom PCB / Perfboard | Circuit assembly |
+| USB Cable | Power and communication |
+| 3D-Printed Enclosure | Controller body |
+
+## 🧠 System Architecture
+
+The Raspberry Pi Pico acts as the central controller.
+
+```text
+       ANALOG JOYSTICKS
+               |
+               v
+        74HC4051 MUX
+               |
+               v
+        RASPBERRY PI PICO
+               |
+       USB HID GAMEPAD
+               |
+               v
+             PC GAME
+
+
+       16-BUTTON MATRIX
+               |
+               v
+        RASPBERRY PI PICO
+
+
+       VIBRATION MOTORS
+               |
+               v
+          MOSFET DRIVERS
+               |
+               v
+        RASPBERRY PI PICO
+```
+
+## 🔌 Pin Configuration
+
+### 74HC4051 Multiplexer
+
+| Multiplexer Pin | Raspberry Pi Pico GPIO |
+|---|---|
+| S0 | GPIO 12 |
+| S1 | GPIO 13 |
+| S2 | GPIO 14 |
+| SIG / Z | GPIO 26 (ADC0) |
+| VCC | 3.3V |
+| GND | GND |
+
+### Analog Joystick Channels
+
+| Multiplexer Channel | Function |
+|---|---|
+| Y0 | Left Joystick VRX |
+| Y1 | Left Joystick VRY |
+| Y2 | Right Joystick VRX |
+| Y3 | Right Joystick VRY |
+
+### Other Connections
+
+- Button matrix: 16 tactile switches.
+- L3: GPIO 2.
+- R3: GPIO 3.
+- Vibration motor drivers: GPIO 20 and GPIO 21.
+
+*Note: Refer to the firmware source for the complete button-matrix pin assignments.*
+
+## ⚙️ How It Works
+
+### 1. Analog Joystick Processing
+
+The controller uses two analog joysticks to provide movement and camera control.
+
+Since multiple analog signals need to be read using the Pico, a 74HC4051 multiplexer is used.
+
+The Pico selects the required channel using three digital selection pins and reads the selected analog signal through ADC0.
+
+### 2. Button Input Processing
+
+A 4×4 button matrix is used to read 16 tactile switches.
+
+Additional joystick-click inputs are provided through L3 and R3.
+
+### 3. USB HID Communication
+
+The Raspberry Pi Pico processes the joystick and button inputs and communicates with the computer as a USB gamepad.
+
+This allows compatible PC games to recognize the controller as a game input device.
+
+### 4. Vibration System
+
+Two vibration motors are controlled through AO3400A MOSFET driver circuits.
+
+The current firmware includes button-triggered vibration functionality.
+
+**Note:** This is not yet full game-generated force feedback or USB rumble support.
+
+## 🖥️ Software and Development
+
+| Tool / Technology | Usage |
+|---|---|
+| Raspberry Pi Pico | Embedded controller |
+| C / C++ | Firmware development |
+| USB HID | Gamepad communication |
+| ADC | Analog joystick reading |
+| GPIO | Button and motor control |
+| KiCad | PCB design exploration |
+| 3D Printing | Controller enclosure |
+
+*The exact firmware framework and library versions should be added when publishing the source code.*
+
+## 🧪 Testing
+
+HAFFY Controller X1 has been tested on a Windows PC.
+
+Testing includes:
+
+- USB gamepad recognition.
+- Analog joystick input.
+- Button input detection.
+- L3 and R3 functionality.
+- Vibration motor activation.
+- Gameplay testing with Ghost Recon Breakpoint.
+
+The controller successfully functions as a PC gamepad.
+
+## 🏗️ Development Journey
+
+This project went through several development stages:
+
+1. Initial Raspberry Pi Pico experimentation.
+2. Analog joystick interfacing.
+3. 74HC4051 multiplexer integration.
+4. Button matrix development.
+5. Vibration motor integration.
+6. USB gamepad firmware development.
+7. Custom controller enclosure design.
+8. Hardware assembly and soldering.
+9. PC game testing.
+
+Every stage involved practical experimentation, troubleshooting, and hardware improvements.
+
+## 🔮 Future Improvements
+
+- [ ] Custom PCB integration.
+- [ ] Improved enclosure finishing.
+- [ ] Customizable RGB lighting.
+- [ ] Wireless connectivity.
+- [ ] Battery-powered operation.
+- [ ] Game-generated force feedback support.
+- [ ] Dedicated configuration software.
+
+## 👨‍💻 Developer
+
+**HAFFY Controller X1**
+
+Designed and developed by **Hafsal**.
+
+An independent embedded systems project focused on learning, experimentation, hardware development, and practical engineering.
+
+---
+
+<p align="center">
+  <strong>HAFFY CONTROLLER X1</strong><br>
+  Built Not Bought. 💙💛
+</p>
+---
+
+## 🔌 Circuit Schematic
+
+The following schematic illustrates the hardware connections between the Raspberry Pi Pico and the 74HC4051 multiplexer used in HAFFY Controller X1.
+
+<p align="center">
+  <img src="image.png" alt="HAFFY Controller X1 Circuit Schematic" width="800">
+</p>
+
+## 📜 License
+This project is currently an independent personal hardware project. A license can be added when the source code is published.
+
